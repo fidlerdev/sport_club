@@ -1,7 +1,7 @@
 import asyncio
 import logging
 import config
-from database.queries import create_tables, drop_tables
+from database.query import create_tables, drop_tables
 from bot import start_bot
 
 
