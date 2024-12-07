@@ -9,7 +9,6 @@ class MemberAccountSG(StatesGroup):
 class TrainerAccountSG(StatesGroup):
     main = State()
     members = State()
-    member_trainings = State()
     create_training = State()
 
 

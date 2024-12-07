@@ -14,11 +14,7 @@ dialog = Dialog(
         Format("<b>Фамилия:</b> {surname}"),
         Format("<b>Дата рождения:</b> {birthday}"),
         Format("<b>Членство:</b> \"{membership_name}\" до {expiration_date}"),
-        SwitchTo(
-            Const("Приобрести членство"),
-            id="__btn_buy_membership",
-            state=MemberAccountSG.membership_list
-        ),
+        Cancel(Const("Приобрести членство")),
         Button(
             Const("Отказаться от членства"),
             id="__btn_cancel_membership",

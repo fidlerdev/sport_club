@@ -6,8 +6,6 @@ from aiogram_dialog.widgets.kbd import Cancel, SwitchTo, Button, ScrollingGroup,
 from bot.state import TrainingInfoSG
 
 
-
-
 dialog = Dialog(
 
     Window(
