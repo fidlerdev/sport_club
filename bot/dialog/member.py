@@ -26,7 +26,7 @@ dialog = Dialog(
         SwitchTo(
             Const("Расписание тренировок"),
             id="__btn_schedule",
-            state=MemberAccountSG.edit_data
+            state=MemberAccountSG.trainigs
         ),
         Cancel(Const("Закрыть")),
         state=MemberAccountSG.main,
@@ -40,7 +40,7 @@ dialog = Dialog(
     ),
 
     Window(
-        Const("Список тарифов"),
+        Const("<b>Список тарифов</b>"),
         ScrollingGroup(
             Select(
                 Format("{item[1]} | {item[2]} ₽ | {item[3]} дней"),
@@ -53,6 +53,7 @@ dialog = Dialog(
             height=10,
             hide_on_single_page=True,
         ),
+        Cancel(Const("Назад")),
         preview_data={
             "memberships": [
                 (1, "VIP", 500, 120),
@@ -74,7 +75,7 @@ dialog = Dialog(
         Const("Расписание тренировок"),
         ScrollingGroup(
             Select(
-                Format(""),
+                Format("{item[1]} | Интенсивность - {item[2]}"),
                 id="__select_training",
                 item_id_getter=operator.itemgetter(0),
                 items="trainings",
@@ -84,7 +85,8 @@ dialog = Dialog(
             height=10,
             hide_on_single_page=True,
         ),
-        state=MemberAccountSG.schedule,
+        Cancel(Const("Назад")),
+        state=MemberAccountSG.trainigs,
         preview_data={
             "trainings": [
                 (1, "12.12.2024 08:00", "Высокая"),
@@ -95,21 +97,4 @@ dialog = Dialog(
         },
     ),
 
-    Window(
-        Const("Информация о тренировке"),
-        Format("<b>Дата:</b> {date}"),
-        Format("<b>Интенсивность:</b> {intensity}"),
-        Format("<b>Описание:</b> {description}"),
-        Format("Длительность: {duration}"),
-        Format("Тренер: {trainer}"),
-        state=MemberAccountSG.training_info,
-        preview_data={
-            "training_id": 1,
-            "date": "12.12.2024 08:00",
-            "intensity": "Высокая",
-            "description": "Тренировка по высокой интensивности",
-            "duration": "1 час",
-            "trainer": "Иванов И.И.",
-        }
-    )
 )

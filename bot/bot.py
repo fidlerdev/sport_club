@@ -6,7 +6,7 @@ import config
 
 from aiogram_dialog.tools import render_preview
 
-from .dialog import member_dialog
+from .dialog import member_dialog, trainer_dialog, training_dialog, membership_dialog
 
 
 bot = Bot(
@@ -21,6 +21,11 @@ dp = Dispatcher(storage=MemoryStorage())
 
 
 async def start_bot():
-    dp.include_routers(member_dialog)
+    dp.include_routers(
+        trainer_dialog,
+        member_dialog,
+        training_dialog,
+        membership_dialog
+    )
     await render_preview(dp, "render.html")
     
