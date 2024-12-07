@@ -6,7 +6,6 @@ from aiogram_dialog.widgets.kbd import Cancel, SwitchTo, Button, ScrollingGroup,
 from bot.state import MembershipSG
 
 
-
 dialog = Dialog(
 
     Window(
@@ -28,4 +27,3 @@ dialog = Dialog(
     ),
 
 )
-
