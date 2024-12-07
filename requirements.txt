@@ -4,4 +4,4 @@ aiogram-dialog[tools]
 loguru
 python-dotenv
 sqlalchemy
-mysqlclient 
+mysqlclient
