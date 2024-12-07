@@ -1,0 +1,7 @@
+aiogram
+aiogram-dialog
+aiogram-dialog[tools]
+loguru
+python-dotenv
+sqlalchemy
+mysqlclient 
