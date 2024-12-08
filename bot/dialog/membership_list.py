@@ -35,6 +35,6 @@ dialog = Dialog(
                 (10, "VIP++++++++", 5000, 14),
             ]
         },
-        state=MembershipListSG.membership_list,
+        state=MembershipListSG.main,
     ),
 )

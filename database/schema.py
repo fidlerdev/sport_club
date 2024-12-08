@@ -1,30 +1,38 @@
-from datetime import datetime
+from datetime import date, datetime
+from typing import Optional
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import mapped_column, Mapped
 
 from .database import Base
 
 
-class MemberDB(Base):
-    __tablename__ = "member"
+class UserDB(Base):
+    __tablename__ = "user"
 
-    id: Mapped[int] = mapped_column(primary_key=True, unique=True, autoincrement=True)
-    tg_id: Mapped[int] = mapped_column(unique=True)
+    id: Mapped[int] = mapped_column(primary_key=True, unique=True)
+    full_name: Mapped[Optional[str]] = mapped_column(nullable=True)
+    birthday: Mapped[Optional[date]] = mapped_column(nullable=True)
+    phone: Mapped[Optional[str]] = mapped_column(nullable=True)
+
+    role_id: Mapped[int] = mapped_column(ForeignKey("user_role.id", ondelete="SET NULL"))
+
+
+class UserRoleDB(Base):
+    __tablename__ = "user_role"
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str]
-    surname: Mapped[str]
-    birthday: Mapped[datetime]
-    phone: Mapped[str]
-    created_at: Mapped[datetime] = mapped_column(default_factory=datetime.utcnow)
+    value: Mapped[int] = mapped_column(unique=True)
 
 
-class MemberBanDB(Base):
-    __tablename__ = "member_ban"
+class UserBanDB(Base):
+    __tablename__ = "user_ban"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     reason: Mapped[str]
     expiration_date: Mapped[datetime]
 
-    member_id: Mapped[int] = mapped_column(ForeignKey("member.id", ondelete="CASCADE"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"))
 
 
 class MemberToMembershipDB(Base):
@@ -33,7 +41,7 @@ class MemberToMembershipDB(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     expiration_date: Mapped[datetime]
 
-    member_id = mapped_column(ForeignKey("member.id", ondelete="CASCADE"))
+    member_id = mapped_column(ForeignKey("user.id", ondelete="CASCADE"))
     membership_id = mapped_column(ForeignKey("membership.id"))
 
 
@@ -55,29 +63,12 @@ class MembershipLevelDB(Base):
     value: Mapped[int] = mapped_column(unique=True)
 
 
-class StaffDB(Base):
-    __tablename__ = "staff"
-    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    name: Mapped[str]
-    surname: Mapped[str]
-    phone: Mapped[str]
-    role_id: Mapped[int] = mapped_column(ForeignKey("staff_role.id", ondelete="SET NULL"))
-
-
-class StaffRoleDB(Base):
-    __tablename__ = "staff_role"
-
-    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    name: Mapped[str]
-    value: Mapped[int] = mapped_column(unique=True)
-
-
 class TrainerToMemberDB(Base):
     __tablename__ = "trainer_to_member"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    member_id: Mapped[int] = mapped_column(ForeignKey("member.id", ondelete="CASCADE"))
-    trainer_id: Mapped[int] = mapped_column(ForeignKey("staff.id", ondelete="CASCADE"))
+    member_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"))
+    trainer_id: Mapped[int] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"))
 
 
 class TrainingDB(Base):

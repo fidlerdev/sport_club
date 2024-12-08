@@ -6,7 +6,7 @@ from bot import start_bot
 
 
 async def main():
-    # create_tables()
+    create_tables()
     if config.DROP_TABLES:
         drop_tables()
     await start_bot()

@@ -22,7 +22,7 @@ dialog = Dialog(
         ),
         Cancel(Const("Назначить тренировку")),
         Cancel(Const("Назад")),
-        state=TrainingListSG.member_trainings,
+        state=TrainingListSG.main,
         preview_data={
             "trainings": [
                 (1, "12.12.2024 08:00", "Высокая"),

@@ -221,22 +221,30 @@
     </div>
     
         <div class="start-group">
-            <span class="group">TrainerAccountSG</span>
+            <span class="group">AiogramDialogStates</span>
             
-                <a href="#TrainerAccountSG:main" class="start">main</a>
-            
-                <a href="#TrainerAccountSG:members" class="start">members</a>
-            
-                <a href="#TrainerAccountSG:create_training" class="start">create_training</a>
+                <a href="#AiogramDialogStates:ABOUT" class="start">ABOUT</a>
             
         </div>
     
         <div class="start-group">
-            <span class="group">MemberAccountSG</span>
+            <span class="group">UserAccountSG</span>
             
-                <a href="#MemberAccountSG:main" class="start">main</a>
+                <a href="#UserAccountSG:main" class="start">main</a>
             
-                <a href="#MemberAccountSG:trainigs" class="start">trainigs</a>
+        </div>
+    
+        <div class="start-group">
+            <span class="group">MemberListSG</span>
+            
+                <a href="#MemberListSG:main" class="start">main</a>
+            
+        </div>
+    
+        <div class="start-group">
+            <span class="group">TrainerAccountSG</span>
+            
+                <a href="#TrainerAccountSG:main" class="start">main</a>
             
         </div>
     
@@ -248,15 +256,244 @@
         </div>
     
         <div class="start-group">
+            <span class="group">TrainingListSG</span>
+            
+                <a href="#TrainingListSG:main" class="start">main</a>
+            
+        </div>
+    
+        <div class="start-group">
+            <span class="group">CreateTrainingSG</span>
+            
+                <a href="#CreateTrainingSG:main" class="start">main</a>
+            
+        </div>
+    
+        <div class="start-group">
             <span class="group">MembershipSG</span>
             
                 <a href="#MembershipSG:main" class="start">main</a>
             
         </div>
     
+        <div class="start-group">
+            <span class="group">MembershipListSG</span>
+            
+                <a href="#MembershipListSG:main" class="start">main</a>
+            
+        </div>
+    
+        <div class="start-group">
+            <span class="group">RegisterSG</span>
+            
+                <a href="#RegisterSG:full_name" class="start">full_name</a>
+            
+                <a href="#RegisterSG:phone" class="start">phone</a>
+            
+                <a href="#RegisterSG:birthday" class="start">birthday</a>
+            
+        </div>
+    
 </div>
 <br>
 
+
+    
+        <div class="message" id="AiogramDialogStates:ABOUT">
+            <div class="avatar">@</div>
+            <div class="body bottom">
+                <div class="author">Bot name</div>
+                <div class="time">AiogramDialogStates:ABOUT</div>
+                
+                <div class="text"><b><u>aiogram_dialog</u></b> by @tishka17<br><br>Telegram bot UI framework on top of aiogram<br><br><b>Version:</b> 2.2.0<br><b>Author:</b> Andrey Tikhonov &lt;17@itishka.org&gt;<br><br><b>Homepage:</b> <a href=" https://github.com/tishka17/aiogram_dialog"> https://github.com/tishka17/aiogram_dialog</a><br><b>Documentation:</b> <a href=" https://aiogram-dialog.readthedocs.org"> https://aiogram-dialog.readthedocs.org</a><br><b>Bug Tracker:</b> <a href=" https://github.com/tishka17/aiogram_dialog/issues"> https://github.com/tishka17/aiogram_dialog/issues</a><br></div>
+            </div>
+            
+                <div class="keyboard bottom">
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#AiogramDialogStates:ABOUT"
+                                   class="keyboard-button">Ok</a>
+                            
+                        </div>
+                    
+                </div>
+            
+            
+            <div class="inputs">
+                
+                
+            </div>
+        </div>
+    
+
+    
+        <div class="message" id="UserAccountSG:main">
+            <div class="avatar">@</div>
+            <div class="body bottom">
+                <div class="author">Bot name</div>
+                <div class="time">UserAccountSG:main</div>
+                
+                <div class="text"><b>Личный кабинет</b><br><b>Имя:</b> Иван<br><b>Фамилия:</b> Иванов<br><b>Дата рождения:</b> 01.01.1980<br><b>Членство:</b> "VIP" до 31.12.2022</div>
+            </div>
+            
+                <div class="keyboard bottom">
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#UserAccountSG:main"
+                                   class="keyboard-button">Приобрести членство</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#UserAccountSG:main"
+                                   class="keyboard-button">Отказаться от членства</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#UserAccountSG:main"
+                                   class="keyboard-button">Тренировки</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#UserAccountSG:main"
+                                   class="keyboard-button">Закрыть</a>
+                            
+                        </div>
+                    
+                </div>
+            
+            
+            <div class="inputs">
+                
+                
+            </div>
+        </div>
+    
+
+    
+        <div class="message" id="MemberListSG:main">
+            <div class="avatar">@</div>
+            <div class="body bottom">
+                <div class="author">Bot name</div>
+                <div class="time">MemberListSG:main</div>
+                
+                <div class="text"><b>Клиенты</b></div>
+            </div>
+            
+                <div class="keyboard bottom">
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">Иванов Иван</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">Петров Петр</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">Сидоров Сидор</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">Кузнецов Кузьма</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">Михайлов Михаил</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">Лебедев Леонид</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">Николаев Николай</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">Орлов Орлан</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">Павлов Павел</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">Семенов Семен</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">1</a>
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">&lt;</a>
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">1</a>
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">&gt;</a>
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">2</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MemberListSG:main"
+                                   class="keyboard-button">Назад</a>
+                            
+                        </div>
+                    
+                </div>
+            
+            
+            <div class="inputs">
+                
+                
+            </div>
+        </div>
+    
 
     
         <div class="message" id="TrainerAccountSG:main">
@@ -281,275 +518,6 @@
                             
                                 <a href="#TrainerAccountSG:main"
                                    class="keyboard-button">Закрыть</a>
-                            
-                        </div>
-                    
-                </div>
-            
-            
-            <div class="inputs">
-                
-                
-            </div>
-        </div>
-    
-        <div class="message" id="TrainerAccountSG:members">
-            <div class="avatar">@</div>
-            <div class="body bottom">
-                <div class="author">Bot name</div>
-                <div class="time">TrainerAccountSG:members</div>
-                
-                <div class="text"><b>Клиенты</b></div>
-            </div>
-            
-                <div class="keyboard bottom">
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">Иванов Иван</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">Петров Петр</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">Сидоров Сидор</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">Кузнецов Кузьма</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">Михайлов Михаил</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">Лебедев Леонид</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">Николаев Николай</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">Орлов Орлан</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">Павлов Павел</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">Семенов Семен</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">1</a>
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">&lt;</a>
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">1</a>
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">&gt;</a>
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">2</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:members"
-                                   class="keyboard-button">Назад</a>
-                            
-                        </div>
-                    
-                </div>
-            
-            
-            <div class="inputs">
-                
-                
-            </div>
-        </div>
-    
-        <div class="message" id="TrainerAccountSG:create_training">
-            <div class="avatar">@</div>
-            <div class="body bottom">
-                <div class="author">Bot name</div>
-                <div class="time">TrainerAccountSG:create_training</div>
-                
-                <div class="text"><b>Назначение тренировки</b><br><b>Клиент:</b> Иванов Иван<br><b>Дата и время:</b> 12.12.2024 08:00<br><b>Интенсивность:</b> Высокая<br><b>Описание:</b> </div>
-            </div>
-            
-                <div class="keyboard bottom">
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:create_training"
-                                   class="keyboard-button">Выбрать время</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:create_training"
-                                   class="keyboard-button">Выбрать интенсивность</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:create_training"
-                                   class="keyboard-button">Добавить описание</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#TrainerAccountSG:create_training"
-                                   class="keyboard-button">Назад</a>
-                            
-                        </div>
-                    
-                </div>
-            
-            
-            <div class="inputs">
-                
-                
-            </div>
-        </div>
-    
-
-    
-        <div class="message" id="MemberAccountSG:main">
-            <div class="avatar">@</div>
-            <div class="body bottom">
-                <div class="author">Bot name</div>
-                <div class="time">MemberAccountSG:main</div>
-                
-                <div class="text"><b>Личный кабинет</b><br><b>Имя:</b> Иван<br><b>Фамилия:</b> Иванов<br><b>Дата рождения:</b> 01.01.1980<br><b>Членство:</b> "VIP" до 31.12.2022</div>
-            </div>
-            
-                <div class="keyboard bottom">
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#MemberAccountSG:main"
-                                   class="keyboard-button">Приобрести членство</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#MemberAccountSG:main"
-                                   class="keyboard-button">Отказаться от членства</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#MemberAccountSG:main"
-                                   class="keyboard-button">Расписание тренировок</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#MemberAccountSG:main"
-                                   class="keyboard-button">Закрыть</a>
-                            
-                        </div>
-                    
-                </div>
-            
-            
-            <div class="inputs">
-                
-                
-            </div>
-        </div>
-    
-        <div class="message" id="MemberAccountSG:trainigs">
-            <div class="avatar">@</div>
-            <div class="body bottom">
-                <div class="author">Bot name</div>
-                <div class="time">MemberAccountSG:trainigs</div>
-                
-                <div class="text">Расписание тренировок</div>
-            </div>
-            
-                <div class="keyboard bottom">
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#MemberAccountSG:trainigs"
-                                   class="keyboard-button">12.12.2024 08:00 | Интенсивность - Высокая</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#MemberAccountSG:trainigs"
-                                   class="keyboard-button">15.12.2024 14:00 | Интенсивность - Низкая</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#MemberAccountSG:trainigs"
-                                   class="keyboard-button">18.12.2024 11:00 | Интенсивность - Средняя</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#MemberAccountSG:trainigs"
-                                   class="keyboard-button">21.12.2024 18:00 | Интенсивность - Высокая</a>
-                            
-                        </div>
-                    
-                        <div class="keyboard-row">
-                            
-                                <a href="#MemberAccountSG:trainigs"
-                                   class="keyboard-button">Назад</a>
                             
                         </div>
                     
@@ -621,6 +589,120 @@
     
 
     
+        <div class="message" id="TrainingListSG:main">
+            <div class="avatar">@</div>
+            <div class="body bottom">
+                <div class="author">Bot name</div>
+                <div class="time">TrainingListSG:main</div>
+                
+                <div class="text"><b>Тренировки</b></div>
+            </div>
+            
+                <div class="keyboard bottom">
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#TrainingListSG:main"
+                                   class="keyboard-button">12.12.2024 08:00 | Интенсивность - Высокая</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#TrainingListSG:main"
+                                   class="keyboard-button">15.12.2024 14:00 | Интенсивность - Низкая</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#TrainingListSG:main"
+                                   class="keyboard-button">18.12.2024 11:00 | Интенсивность - Средняя</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#TrainingListSG:main"
+                                   class="keyboard-button">21.12.2024 18:00 | Интенсивность - Высокая</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#TrainingListSG:main"
+                                   class="keyboard-button">Назначить тренировку</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#TrainingListSG:main"
+                                   class="keyboard-button">Назад</a>
+                            
+                        </div>
+                    
+                </div>
+            
+            
+            <div class="inputs">
+                
+                
+            </div>
+        </div>
+    
+
+    
+        <div class="message" id="CreateTrainingSG:main">
+            <div class="avatar">@</div>
+            <div class="body bottom">
+                <div class="author">Bot name</div>
+                <div class="time">CreateTrainingSG:main</div>
+                
+                <div class="text"><b>Назначение тренировки</b><br><b>Клиент:</b> Иванов Иван<br><b>Дата и время:</b> 12.12.2024 08:00<br><b>Интенсивность:</b> Высокая<br><b>Описание:</b> </div>
+            </div>
+            
+                <div class="keyboard bottom">
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#CreateTrainingSG:main"
+                                   class="keyboard-button">Выбрать время</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#CreateTrainingSG:main"
+                                   class="keyboard-button">Выбрать интенсивность</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#CreateTrainingSG:main"
+                                   class="keyboard-button">Добавить описание</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#CreateTrainingSG:main"
+                                   class="keyboard-button">Назад</a>
+                            
+                        </div>
+                    
+                </div>
+            
+            
+            <div class="inputs">
+                
+                
+            </div>
+        </div>
+    
+
+    
         <div class="message" id="MembershipSG:main">
             <div class="avatar">@</div>
             <div class="body bottom">
@@ -636,6 +718,383 @@
                             
                                 <a href="#MembershipSG:main"
                                    class="keyboard-button">Назад</a>
+                            
+                        </div>
+                    
+                </div>
+            
+            
+            <div class="inputs">
+                
+                
+            </div>
+        </div>
+    
+
+    
+        <div class="message" id="MembershipListSG:main">
+            <div class="avatar">@</div>
+            <div class="body bottom">
+                <div class="author">Bot name</div>
+                <div class="time">MembershipListSG:main</div>
+                
+                <div class="text"><b>Список тарифов</b></div>
+            </div>
+            
+                <div class="keyboard bottom">
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MembershipListSG:main"
+                                   class="keyboard-button">VIP | 500 ₽ | 120 дней</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MembershipListSG:main"
+                                   class="keyboard-button">Премиум | 1000 ₽ | 365 дней</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MembershipListSG:main"
+                                   class="keyboard-button">VIP+ | 1500 ₽ | 60 дней</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MembershipListSG:main"
+                                   class="keyboard-button">VIP++ | 2000 ₽ | 90 дней</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MembershipListSG:main"
+                                   class="keyboard-button">VIP+++ | 2500 ₽ | 120 дней</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MembershipListSG:main"
+                                   class="keyboard-button">VIP++++ | 3000 ₽ | 30 дней</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MembershipListSG:main"
+                                   class="keyboard-button">VIP+++++ | 3500 ₽ | 7 дней</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MembershipListSG:main"
+                                   class="keyboard-button">VIP++++++ | 4000 ₽ | 14 дней</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MembershipListSG:main"
+                                   class="keyboard-button">VIP+++++++ | 4500 ₽ | 14 дней</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MembershipListSG:main"
+                                   class="keyboard-button">VIP++++++++ | 5000 ₽ | 14 дней</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#MembershipListSG:main"
+                                   class="keyboard-button">Назад</a>
+                            
+                        </div>
+                    
+                </div>
+            
+            
+            <div class="inputs">
+                
+                
+            </div>
+        </div>
+    
+
+    
+        <div class="message" id="RegisterSG:full_name">
+            <div class="avatar">@</div>
+            <div class="body bottom">
+                <div class="author">Bot name</div>
+                <div class="time">RegisterSG:full_name</div>
+                
+                <div class="text">Введите полное имя:</div>
+            </div>
+            
+                <div class="keyboard bottom">
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#RegisterSG:full_name"
+                                   class="keyboard-button">Отмена</a>
+                            
+                        </div>
+                    
+                </div>
+            
+            
+            <div class="inputs">
+                
+                
+            </div>
+        </div>
+    
+        <div class="message" id="RegisterSG:phone">
+            <div class="avatar">@</div>
+            <div class="body bottom">
+                <div class="author">Bot name</div>
+                <div class="time">RegisterSG:phone</div>
+                
+                <div class="text">Введите номер телефона:</div>
+            </div>
+            
+                <div class="keyboard bottom">
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#RegisterSG:phone"
+                                   class="keyboard-button">Отмена</a>
+                            
+                        </div>
+                    
+                </div>
+            
+            
+            <div class="inputs">
+                
+                
+            </div>
+        </div>
+    
+        <div class="message" id="RegisterSG:birthday">
+            <div class="avatar">@</div>
+            <div class="body bottom">
+                <div class="author">Bot name</div>
+                <div class="time">RegisterSG:birthday</div>
+                
+                <div class="text">Выберите дату рождения:</div>
+            </div>
+            
+                <div class="keyboard bottom">
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">🗓 December 2024</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">Mon</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">Tue</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">Wed</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">Thu</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">Fri</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">Sat</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">Sun</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button"> </a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button"> </a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button"> </a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button"> </a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button"> </a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button"> </a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">01</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">02</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">03</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">04</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">05</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">06</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">07</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">[ 08 ]</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">09</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">10</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">11</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">12</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">13</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">14</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">15</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">16</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">17</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">18</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">19</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">20</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">21</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">22</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">23</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">24</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">25</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">26</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">27</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">28</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">29</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">30</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">31</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button"> </a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button"> </a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button"> </a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button"> </a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button"> </a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">&lt;&lt; November 2024</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">🔍</a>
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">January 2025 &gt;&gt;</a>
+                            
+                        </div>
+                    
+                        <div class="keyboard-row">
+                            
+                                <a href="#RegisterSG:birthday"
+                                   class="keyboard-button">Отмена</a>
                             
                         </div>
                     

@@ -1,15 +1,16 @@
 from aiogram.fsm.state import State, StatesGroup
 
 
-class MemberAccountSG(StatesGroup):
+class UserAccountSG(StatesGroup):
     main = State()
-    trainigs = State()
 
 
 class TrainerAccountSG(StatesGroup):
     main = State()
-    members = State()
-    create_training = State()
+
+
+class CreateTrainingSG(StatesGroup):
+    main = State()
 
 
 class InputDataSG(StatesGroup):
@@ -32,3 +33,13 @@ class TrainingListSG(StatesGroup):
 
 class MembershipListSG(StatesGroup):
     main = State()
+
+
+class MemberListSG(StatesGroup):
+    main = State()
+
+    
+class RegisterSG(StatesGroup):
+    full_name = State()
+    phone = State()
+    birthday = State()

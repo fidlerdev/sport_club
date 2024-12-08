@@ -20,4 +20,4 @@ if USE_MYSQL:
     # DATA SOURCE NAME
     DB_DSN = f"mysql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 else:
-    DB_DSN = "sqlite:////database.db"
+    DB_DSN = "sqlite:///database.db"
