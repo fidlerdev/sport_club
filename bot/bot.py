@@ -1,4 +1,4 @@
-from aiogram import Dispatcher, Bot
+from aiogram import Dispatcher, Bot, types
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
@@ -8,8 +8,9 @@ from aiogram_dialog import setup_dialogs
 from aiogram_dialog.tools import render_preview
 
 from .dialog import *
-from .handler import unreg_router
+from .handler import handler_router
 
+from .root_dialog import root_dialog
 
 bot = Bot(
     token=config.BOT_TOKEN,
@@ -24,6 +25,7 @@ setup_dialogs(dp)
 
 async def start_bot():
     dp.include_routers(
+        root_dialog,
         account_dialog,
         member_list_dialog,
         trainer_dialog,
@@ -32,13 +34,16 @@ async def start_bot():
         create_training_dialog,
         membership_dialog,
         membership_list_dialog,
-        unreg_router,
+        handler_router,
         register_dialog
     )
     
-    await render_preview(dp, "render.html")
+    # await render_preview(dp, "render.html")
     
     await bot.delete_webhook(drop_pending_updates=True)
+    await bot.set_my_commands([
+        types.BotCommand(command="account", description="Личный кабинет"),
+    ])
     await dp.start_polling(bot)
     
     

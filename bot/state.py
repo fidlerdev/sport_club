@@ -1,6 +1,17 @@
 from aiogram.fsm.state import State, StatesGroup
 
 
+class BotSG(StatesGroup):
+    account = State()
+    create_training = State()
+    training = State()
+    training_list = State()
+    membership = State()
+    membership_list = State()
+    member_list = State()
+    
+    
+
 class UserAccountSG(StatesGroup):
     main = State()
 
