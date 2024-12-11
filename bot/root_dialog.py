@@ -1,6 +1,6 @@
 import operator
 from aiogram_dialog import Dialog, DialogManager, Window
-from aiogram_dialog.widgets.text import Const, Format
+from aiogram_dialog.widgets.text import Const, Format, Case
 from aiogram_dialog.widgets.kbd import Cancel, SwitchTo, Button, ScrollingGroup, Select, Start
 from aiogram import F, types
 from aiogram.dispatcher.middlewares.user_context import EventContext
@@ -16,9 +16,20 @@ async def dialog_getter(
     event_context: EventContext,
     **kwargs
 ) -> dict:
+    match dialog_manager.start_data["role"]:
+        case Role.MEMBER:
+            status = "член клуба"
+        case Role.TRAINER:
+            status = "тренер"
+        case Role.ADMIN:
+            status = "администратор"
+        case _:
+            status = "неопределен"
+
     return {
         "role": dialog_manager.start_data["role"],
-        "user_id": dialog_manager.start_data["user_id"]
+        "user_id": dialog_manager.start_data["user_id"],
+        "status": status
     }
 
 
@@ -28,7 +39,7 @@ async def delete_message(
     manager: DialogManager,
 ) -> None:
     await callback.message.delete()
-    
+
 async def account_getter(
     dialog_manager: DialogManager,
     **kwargs
@@ -93,12 +104,19 @@ root_dialog = Dialog(
 
     Window(
         Const("<b>Личный кабинет</b>"),
+        Format("<b>Статус</b>: {status}"),
         Format("<b>Имя:</b> {full_name}"),
         Format("<b>Телефон:</b> {phone}", when=F["phone"]),
         Format("<b>Дата рождения:</b> {birthday}"),
         Format("<b>Тариф:</b> \"{membership_name}\" до {expiration_date}", when=F["role"] & Role.MEMBER),
         SwitchTo(
-            Const("Приобрести членство"),
+            Case(
+                {
+                Role.MEMBER: Const("Приобрести членство"),
+                Role.ADMIN: Const("Список тарифов")
+                },
+                selector="role"
+            ),
             id="__st_membership_list",
             state=BotSG.membership_list,
             when=((F["role"] & Role.MEMBER) & F["membership"].is_(None)) | F["role"] & Role.ADMIN
@@ -219,10 +237,7 @@ root_dialog = Dialog(
         state=BotSG.membership_list,
         getter=membership_list_getter,
     ),
-    
-    Window(
-        
-    ),
-    
+
+
     getter=dialog_getter,
 )

@@ -8,6 +8,6 @@ from bot.state import MembershipListSG
 
 dialog = Dialog(
 
-    Window()
+    Window(),
 
 )
