@@ -50,6 +50,7 @@ class MembershipDB(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str]
+    description: Mapped[str]
     level: Mapped[int]
     days: Mapped[int]
     price: Mapped[int]

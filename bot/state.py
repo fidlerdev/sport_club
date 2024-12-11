@@ -11,8 +11,9 @@ class BotSG(StatesGroup):
     create_membership = State()
     member_list = State()
     trainer_list = State()
-    
-    
+    trainer_info = State()
+    member_info = State()
+
 
 class UserAccountSG(StatesGroup):
     main = State()
@@ -51,7 +52,7 @@ class MembershipListSG(StatesGroup):
 class MemberListSG(StatesGroup):
     main = State()
 
-    
+
 class RegisterSG(StatesGroup):
     full_name = State()
     phone = State()

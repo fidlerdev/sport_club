@@ -2,6 +2,7 @@ from aiogram import Dispatcher, Bot, types
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
+from bot.input_data_dialog import input_data_dialog
 import config
 
 from aiogram_dialog import setup_dialogs
@@ -36,11 +37,12 @@ async def start_bot():
         membership_dialog,
         membership_list_dialog,
         handler_router,
-        register_dialog
+        register_dialog,
+        input_data_dialog,
     )
-    
+
     # await render_preview(dp, "render.html")
-    
+
     await bot.delete_webhook(drop_pending_updates=True)
     await bot.set_my_commands([
         types.BotCommand(command="account", description="Личный кабинет"),
@@ -49,5 +51,3 @@ async def start_bot():
         types.BotCommand(command="set_admin", description=f"Изменить роль на: {Role.ADMIN.name}"),
     ])
     await dp.start_polling(bot)
-    
-    
