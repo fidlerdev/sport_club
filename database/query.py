@@ -168,7 +168,6 @@ def get_trainers() -> list[UserDB]:
             .scalars()
             .all()
         )
-
         return users
 
 
@@ -229,3 +228,104 @@ def get_members() -> list[UserDB]:
             select(UserDB)
             .where(UserDB.role_id == rid)
         ).scalars().all()
+
+
+def get_user_trainer(member_id: int) -> UserDB | None:
+    with session_factory() as s:
+        mob_tie = s.execute(
+            select(TrainerToMemberDB)
+            .where(TrainerToMemberDB.member_id == member_id)
+        ).scalar()
+        if mob_tie is None:
+            return None
+        return s.execute(
+            select(UserDB)
+            .where(UserDB.id == mob_tie.trainer_id)
+        ).scalar()
+
+
+def tie_trainer_and_member(member_id: int, trainer_id: int):
+    with session_factory() as s:
+        if get_user_trainer(member_id):
+            s.execute(
+                update(TrainerToMemberDB)
+                .values(trainer_id=trainer_id)
+                .where(TrainerToMemberDB.member_id == member_id)
+            )
+            s.commit()
+        else:
+            s.add(
+                TrainerToMemberDB(trainer_id=trainer_id, member_id=member_id)
+            )
+            s.commit()
+
+
+def get_user_trainings(user_id: int) -> list[TrainingDB]:
+    with session_factory() as s:
+        tie = s.execute(
+            select(TrainerToMemberDB)
+            .where(TrainerToMemberDB.member_id == user_id)
+        ).scalar()
+        logger.debug(f"{tie =}")
+        if not tie:
+            return []
+        return s.execute(
+            select(TrainingDB)
+            .where(TrainingDB.trainer_to_member_id == tie.id)
+        ).scalars().all()
+
+
+def get_member_tie(user_id: int):
+    with session_factory() as s:
+        return s.execute(
+            select(TrainerToMemberDB)
+            .where(TrainerToMemberDB.member_id == user_id)
+        ).scalar()
+
+
+def get_trainer_trainings(user_id: int) -> list[TrainingDB]:
+    with session_factory() as s:
+        tie = s.execute(
+            select(TrainerToMemberDB)
+            .where(TrainerToMemberDB.trainer_id == user_id)
+        ).scalar()
+        logger.debug(f"{tie =}")
+        if not tie:
+            return []
+        return s.execute(
+            select(TrainingDB)
+            .where(TrainingDB.trainer_to_member_id == tie.id)
+        ).scalars().all()
+
+
+def add_tie(trainer_id: int, member_id: int):
+    with session_factory() as s:
+        s.add(
+            TrainerToMemberDB(member_id=member_id, trainer_id=trainer_id)
+        )
+        s.commit()
+
+def add_training(
+    tie_id,
+    description,
+    date_time,
+) -> None:
+    with session_factory() as s:
+        s.add(
+            TrainingDB(
+                scheduled_datetime=date_time,
+                intensite="",
+                duration=0,
+                description=description,
+                trainer_to_member_id=tie_id,
+            ),
+        )
+        s.commit()
+
+
+def get_training(tr_id: int) -> TrainingDB:
+    with session_factory() as s:
+        return s.execute(
+            select(TrainingDB)
+            .where(TrainingDB.id == tr_id)
+        ).scalar()

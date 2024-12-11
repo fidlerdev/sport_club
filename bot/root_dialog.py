@@ -9,6 +9,7 @@ from loguru import logger
 from bot.state import BotSG, InputDataSG
 from database import query
 from database.enums import Role, Level, _l, get_included_string
+from datetime import datetime
 
 
 async def on_member_info(
@@ -99,6 +100,7 @@ async def account_getter(
 ) -> dict:
     user = query.get_user(user_id=dialog_manager.start_data["user_id"])
     membership = query.get_user_membership(user_id=dialog_manager.start_data["user_id"])
+    trainer = query.get_user_trainer(user.id)
     logger.debug(f"{membership = }")
     if membership:
         return {
@@ -107,7 +109,8 @@ async def account_getter(
             "phone": user.phone,
             "membership_name": membership[2],
             "expiration_date": membership[1].strftime(r"%d.%m.%Y"),
-            "membership": True
+            "membership": True,
+            "trainer": trainer
         }
     return {
         "full_name": user.full_name,
@@ -119,22 +122,71 @@ async def account_getter(
 
 async def training_list_getter(
     dialog_manager: DialogManager,
+    event_context,
     **kwargs
 ) -> dict:
+    user_id = event_context.chat.id
+    role = query.get_user_role(user_id)
+    logger.debug(f"{user_id = } {role = }")
+    if role == Role.TRAINER:
+        trainings = query.get_trainer_trainings(user_id)
+        logger.debug(f"{trainings = }")
+        return {"trainings": [(t.id, t.scheduled_datetime.strftime("%d.%m.%Y %H:%M")) for t in trainings]}
+    if role == Role.MEMBER:
+        trainings = query.get_user_trainings(user_id)
+        logger.debug(f"{trainings = }")
+        return {"trainings": [(t.id, t.scheduled_datetime.strftime("%d.%m.%Y %H:%M")) for t in trainings]}
+    else:
+        return {
+            "trainings": []
+        }
+
+
+async def training_info_getter(
+    dialog_manager: DialogManager,
+    **kwargs
+) -> dict:
+    training = query.get_training(dialog_manager.dialog_data["training_id"])
     return {
-        "trainings": []
+        "date_time": training.scheduled_datetime.strftime("%d.%m.%Y %H:%M"),
+        "description": training.description,
     }
+
+
+async def show_training_info(
+    callback: types.CallbackQuery,
+    button: Button,
+    manager: DialogManager,
+    tr_id: int
+) -> None:
+    manager.dialog_data["training_id"] = tr_id
+    await manager.switch_to(BotSG.training_info)
+
+
+async def set_training(
+    callback: types.CallbackQuery,
+    button: Button,
+    manager: DialogManager,
+) -> None:
+    _ = manager.dialog_data
+    query.add_training(
+        member_id=_["member_id"],
+        trainer_id=callback.from_user.id,
+        description=_.get("description", ""),
+        date_time=datetime.strptime(_["date_time"], "%d.%m.%Y %H:%M"),
+    )
+    await manager.switch_to(state=BotSG.training_list)
 
 
 async def create_training_getter(
     dialog_manager: DialogManager,
     **kwargs
 ) -> dict:
+    _ = dialog_manager.dialog_data
     return {
-        "client_name": "dummy",
-        "date_time": "dummy",
-        "intensity": "dummy",
-        "description": "dummy",
+        "client_name": query.get_user(_["member_id"]).full_name,
+        "date_time": _.get("date_time", "не указано"),
+        "description": _.get("description", "не указано"),
     }
 
 
@@ -238,15 +290,28 @@ async def on_add_membership(
     )
     await manager.switch_to(BotSG.membership_list)
 
-
-
 async def member_info_getter(
     dialog_manager: DialogManager,
     **kwargs
 ) -> dict:
     return {
-        "member": query.get_user(dialog_manager.dialog_data["member_id"])
+        "member": query.get_user(dialog_manager.dialog_data["member_id"]),
+        "trainer": query.get_user_trainer(dialog_manager.dialog_data["member_id"])
     }
+
+async def tie_trainer(
+    callback: types.CallbackQuery,
+    button: Button,
+    manager: DialogManager,
+    trainer_id: int
+) -> None:
+    query.tie_trainer_and_member(
+        member_id=manager.dialog_data["member_id"],
+        trainer_id=trainer_id
+    )
+    await manager.switch_to(BotSG.member_info)
+
+
 
 root_dialog = Dialog(
 
@@ -257,6 +322,7 @@ root_dialog = Dialog(
         Format("<b>Телефон:</b> {phone}", when=F["phone"]),
         Format("<b>Дата рождения:</b> {birthday}"),
         Format("<b>Тариф:</b> \"{membership_name}\" до {expiration_date}", when=F["role"] == Role.MEMBER & F["membership"].is_(True)),
+        Format("<b>Тренер:</b> {trainer.full_name}", when=F["trainer"]),
         SwitchTo(
             Case(
                 {
@@ -279,18 +345,13 @@ root_dialog = Dialog(
             Const("Тренировки"),
             id="__st_training_list",
             state=BotSG.training_list,
+            when=F["role"] != Role.ADMIN,
         ),
         SwitchTo(
             Const("Список клиентов"),
             id="__st_members_list",
             state=BotSG.member_list,
             when=(F["role"] == Role.ADMIN) | (F["role"] == Role.TRAINER),
-        ),
-        SwitchTo(
-            Const("Список тренеров"),
-            id="__st_trainer_list",
-            state=BotSG.trainer_list,
-            when=F["role"] == Role.ADMIN,
         ),
         Cancel(Const("Закрыть"), on_click=delete_message),
         state=BotSG.account,
@@ -301,6 +362,7 @@ root_dialog = Dialog(
         Const("<b>Информация о клиенте</b>"),
         Format("<b>Имя:</b> {member.full_name}"),
         Format("<b>Телефон:</b> {member.phone}", when=F["phone"]),
+        Format("<b>Тренер:</b> {trainer.full_name}", when=F["trainer"]),
         Format("<b>Дата рождения:</b> {member.birthday}"),
         SwitchTo(
             Const("Назад"),
@@ -311,6 +373,13 @@ root_dialog = Dialog(
             Const("Назначить тренера"),
             state=BotSG.trainer_list,
             id="__st_trainer_list",
+            when=F["role"] == Role.ADMIN,
+        ),
+        SwitchTo(
+            Const("Назначить тренировку"),
+            state=BotSG.create_training,
+            id="__s_create_training",
+            when=F["role"] == Role.TRAINER,
         ),
         getter=member_info_getter,
         state=BotSG.member_info,
@@ -324,7 +393,7 @@ root_dialog = Dialog(
                 id="__select_trainer",
                 item_id_getter=operator.attrgetter("id"),
                 items="trainers",
-                on_click=show_trainer_info,
+                on_click=tie_trainer,
             ),
             id="__sg_trainer_list",
             width=1,
@@ -359,21 +428,16 @@ root_dialog = Dialog(
         Const("<b>Тренировки</b>"),
         ScrollingGroup(
             Select(
-                Format("{item[1]} | Интенсивность - {item[2]}"),
+                Format("{item[1]}"),
                 id="__select_member_training",
                 item_id_getter=operator.itemgetter(0),
                 items="trainings",
+                on_click=show_training_info,
             ),
             id="__sg_membertrainings",
             width=1,
             height=10,
             hide_on_single_page=True,
-        ),
-        SwitchTo(
-            Const("Назначить тренировку"),
-            state=BotSG.create_training,
-            id="__s_create_training",
-            when=F["role"] == Role.TRAINER | F["role"] == Role.ADMIN,
         ),
         SwitchTo(
             Const("Назад"),
@@ -385,14 +449,40 @@ root_dialog = Dialog(
     ),
 
     Window(
+        Const("<b>Информация о тренировке</b>"),
+        Format("<b>Дата и время:</b> {date_time}"),
+        Format("<b>Описание:</b> {description}"),
+        SwitchTo(
+            Const("Назад"),
+            state=BotSG.training_list,
+            id="killme",
+        ),
+        getter=training_info_getter,
+        state=BotSG.training_info,
+    ),
+
+    Window(
         Const("<b>Назначение тренировки</b>"),
         Format("<b>Клиент:</b> {client_name}"),
         Format("<b>Дата и время:</b> {date_time}"),
-        Format("<b>Интенсивность:</b> {intensity}"),
         Format("<b>Описание:</b> {description}"),
-        Cancel(Const("Выбрать время")),
-        Cancel(Const("Выбрать интенсивность")),
-        Cancel(Const("Добавить описание")),
+        Start(
+            Const("Выбрать время"),
+            state=InputDataSG.date,
+            id="__sfdjsfs",
+            data={"name": "date_time", "label": "Выберите время"}
+        ),
+        Start(
+            Const("Добавить описание"),
+            state=InputDataSG.text,
+            id="__dsfjsjklfh12",
+            data={"name": "description", "label": "Введите описание"}
+        ),
+        Button(
+            Const("Сохранить"),
+            id="__save",
+            on_click=set_training,
+        ),
         SwitchTo(
             Const("Назад"),
             state=BotSG.training_list,

@@ -6,6 +6,7 @@ class BotSG(StatesGroup):
     create_training = State()
     training = State()
     training_list = State()
+    training_info = State()
     membership = State()
     membership_list = State()
     create_membership = State()
