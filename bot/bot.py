@@ -6,6 +6,7 @@ import config
 
 from aiogram_dialog import setup_dialogs
 from aiogram_dialog.tools import render_preview
+from database.enums import Role
 
 from .dialog import *
 from .handler import handler_router
@@ -43,6 +44,9 @@ async def start_bot():
     await bot.delete_webhook(drop_pending_updates=True)
     await bot.set_my_commands([
         types.BotCommand(command="account", description="Личный кабинет"),
+        types.BotCommand(command="set_member", description=f"Изменить роль на: {Role.MEMBER.name}"),
+        types.BotCommand(command="set_trainer", description=f"Изменить роль на: {Role.TRAINER.name}"),
+        types.BotCommand(command="set_admin", description=f"Изменить роль на: {Role.ADMIN.name}"),
     ])
     await dp.start_polling(bot)
     

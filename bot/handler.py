@@ -33,3 +33,21 @@ async def on_first_start(msg: types.Message, dialog_manager: DialogManager) -> N
 @handler_router.message(Command("account"), NotUndefinedFilter())
 async def on_account(msg: types.Message, dialog_manager: DialogManager) -> None:
     await dialog_manager.start(BotSG.account, data={"user_id": msg.from_user.id, "role": query.get_user_role(msg.from_user.id)})
+
+
+@handler_router.message(Command("set_member"), NotUndefinedFilter())
+async def set_member(msg: types.Message) -> None:
+    query.update_user_role(msg.from_user.id, Role.MEMBER)
+    await msg.answer(f"Роль изменена на {Role.MEMBER.name}")
+
+
+@handler_router.message(Command("set_trainer"), NotUndefinedFilter())
+async def set_trainer(msg: types.Message) -> None:
+    query.update_user_role(msg.from_user.id, Role.TRAINER)
+    await msg.answer(f"Роль изменена на {Role.TRAINER.name}")
+
+
+@handler_router.message(Command("set_admin"), NotUndefinedFilter())
+async def set_admin(msg: types.Message) -> None:
+    query.update_user_role(msg.from_user.id, Role.ADMIN)
+    await msg.answer(f"Роль изменена на {Role.ADMIN.name}")

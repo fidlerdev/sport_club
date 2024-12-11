@@ -46,6 +46,7 @@ async def account_getter(
 ) -> dict:
     user = query.get_user(user_id=dialog_manager.start_data["user_id"])
     membership = query.get_membership(member_id=dialog_manager.start_data["user_id"])
+    logger.debug(f"{membership = }")
     if membership:
         return {
             "full_name": user.full_name,
@@ -53,11 +54,13 @@ async def account_getter(
             "phone": user.phone,
             "membership_name": membership[2],
             "expiration_date": membership[1].strftime(r"%d.%m.%Y"),
+            "membership": True
         }
     return {
         "full_name": user.full_name,
         "birthday": user.birthday.strftime(r"%d.%m.%Y"),
         "phone": user.phone,
+        "membership": False
     }
 
 
@@ -100,6 +103,37 @@ async def membership_list_getter(
     }
 
 
+async def membership_getter(
+    dialog_manager: DialogManager,
+    **kwargs
+) -> dict:
+    return {
+        "name": "",
+        "included": "",
+        "description": "",
+        "price": "",
+        "days": "",
+    }
+
+    
+async def create_membership_getter(
+    dialog_manager: DialogManager,
+    **kwargs
+) -> dict:
+    return {
+        
+    }
+
+
+async def trainer_list_getter(
+    dialog_manager: DialogManager,
+    **kwargs
+) -> dict:
+    return {
+        "trainers": []
+    }
+
+
 root_dialog = Dialog(
 
     Window(
@@ -108,23 +142,23 @@ root_dialog = Dialog(
         Format("<b>Имя:</b> {full_name}"),
         Format("<b>Телефон:</b> {phone}", when=F["phone"]),
         Format("<b>Дата рождения:</b> {birthday}"),
-        Format("<b>Тариф:</b> \"{membership_name}\" до {expiration_date}", when=F["role"] & Role.MEMBER),
+        Format("<b>Тариф:</b> \"{membership_name}\" до {expiration_date}", when=F["role"] == Role.MEMBER),
         SwitchTo(
             Case(
                 {
-                Role.MEMBER: Const("Приобрести членство"),
-                Role.ADMIN: Const("Список тарифов")
+                    Role.MEMBER: Const("Приобрести членство"),
+                    Role.ADMIN: Const("Список тарифов")
                 },
                 selector="role"
             ),
             id="__st_membership_list",
             state=BotSG.membership_list,
-            when=((F["role"] & Role.MEMBER) & F["membership"].is_(None)) | F["role"] & Role.ADMIN
+            when=((F["role"] == Role.MEMBER) & (F["membership"].is_(False))) | F["role"] == Role.ADMIN
         ),
         Button(
             Const("Отказаться от членства"),
             id="__btn_cancel_membership",
-            when=(F["role"] & Role.MEMBER) & F["membership"].is_not(None)
+            when=(F["role"] == Role.MEMBER) & (F["membership"].is_(True))
         ),
         SwitchTo(
             Const("Тренировки"),
@@ -135,7 +169,13 @@ root_dialog = Dialog(
             Const("Список клиентов"),
             id="__st_members_list",
             state=BotSG.member_list,
-            when=(F["role"] & Role.ADMIN) | (F["role"] & Role.TRAINER),
+            when=(F["role"] == Role.ADMIN) | (F["role"] == Role.TRAINER),
+        ),
+        SwitchTo(
+            Const("Список тренеров"),
+            id="__st_trainer_list",
+            state=BotSG.trainer_list,
+            when=F["role"] == Role.ADMIN,
         ),
         Cancel(Const("Закрыть"), on_click=delete_message),
         state=BotSG.account,
@@ -147,6 +187,29 @@ root_dialog = Dialog(
             "expiration_date": "31.12.2022",
             "birthday": "01.01.1980",
         },
+    ),
+
+    Window(
+        Const("<b>Список тренеров</b>"),
+        ScrollingGroup(
+            Select(
+                Format("{item[1]}"),
+                id="__select_trainer",
+                item_id_getter=operator.itemgetter(0),
+                items="trainers",
+            ),
+            id="__sg_trainer_list",
+            width=1,
+            height=10,
+            hide_on_single_page=True,
+        ),
+        SwitchTo(
+            Const("Назад"),
+            state=BotSG.account,
+            id="__st_account",
+        ),
+        state=BotSG.trainer_list,
+        getter=trainer_list_getter,
     ),
 
     Window(
@@ -167,7 +230,7 @@ root_dialog = Dialog(
             Const("Назначить тренировку"),
             state=BotSG.create_training,
             id="__s_create_training",
-            when=F["role"] & Role.TRAINER | F["role"] & Role.ADMIN,
+            when=F["role"] == Role.TRAINER | F["role"] == Role.ADMIN,
         ),
         SwitchTo(
             Const("Назад"),
@@ -233,11 +296,43 @@ root_dialog = Dialog(
             height=10,
             hide_on_single_page=True,
         ),
-        Cancel(Const("Назад")),
+        SwitchTo(
+            Const("Назначить тариф"),
+            state=BotSG.create_membership,
+            id="__st_create_membership",
+            when=F["role"] == Role.ADMIN,
+        ),
+        SwitchTo(
+            Const("Назад"),
+            state=BotSG.account,
+            id="__st_account",
+        ),
         state=BotSG.membership_list,
         getter=membership_list_getter,
     ),
 
+    Window(
+        Const("<b>Информация о тарифе</b>"),
+        Format("<b>Название</b>: {name}"),
+        Format("<b>Включено: {included} </b>"),
+        Format("<b>Описание:</b> {description}"),
+        Format("<b>Цена:</b> {price}"),
+        Format("<b>Срок действия:</b> {days} дней"),
+        Cancel(Const("Назад")),
+        state=BotSG.membership,
+        getter=membership_getter,
+    ),
+    
+    Window(
+        Const("<b>Создание тарифа</b>"),
+        SwitchTo(
+            Const("Назад"),
+            state=BotSG.membership_list,
+            id="__st_membership_list",
+        ),
+        state=BotSG.create_membership,
+        getter=create_membership_getter,
+    ),
 
     getter=dialog_getter,
 )
