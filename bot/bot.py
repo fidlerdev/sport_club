@@ -6,10 +6,9 @@ from bot.input_data_dialog import input_data_dialog
 import config
 
 from aiogram_dialog import setup_dialogs
-from aiogram_dialog.tools import render_preview
 from database.enums import Role
 
-from .dialog import *
+from .register import dialog as register_dialog
 from .handler import handler_router
 
 from .root_dialog import root_dialog
@@ -28,14 +27,6 @@ setup_dialogs(dp)
 async def start_bot():
     dp.include_routers(
         root_dialog,
-        account_dialog,
-        member_list_dialog,
-        trainer_dialog,
-        training_dialog,
-        training_list_dialog,
-        create_training_dialog,
-        membership_dialog,
-        membership_list_dialog,
         handler_router,
         register_dialog,
         input_data_dialog,

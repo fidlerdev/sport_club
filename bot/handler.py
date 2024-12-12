@@ -28,7 +28,7 @@ async def on_first_start(msg: types.Message, dialog_manager: DialogManager) -> N
     else:
         await msg.reply("Приветствуем вас в личном кабинете спортивного клуба <b>\"GOLD\"</b>.")
         await dialog_manager.start(UserAccountSG.main, data={"user_id": user_id, "role": query.get_user_role(user_id)})
-    
+
 
 @handler_router.message(Command("account"), NotUndefinedFilter())
 async def on_account(msg: types.Message, dialog_manager: DialogManager) -> None:

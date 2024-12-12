@@ -1,9 +1,8 @@
-import operator
 from datetime import date
 from aiogram import types
 from aiogram_dialog import Dialog, Window, DialogManager
-from aiogram_dialog.widgets.text import Const, Format
-from aiogram_dialog.widgets.kbd import Cancel, Button, Calendar
+from aiogram_dialog.widgets.text import Const
+from aiogram_dialog.widgets.kbd import Cancel, Calendar
 from aiogram_dialog.widgets.input import ManagedTextInput, TextInput
 from loguru import logger
 
@@ -23,10 +22,10 @@ async def on_phone(msg: types.Message, input: ManagedTextInput, manager: DialogM
 
 
 async def on_date_selected(callback: types.CallbackQuery, widget,
-                           manager: DialogManager, selected_date: date):
+                        manager: DialogManager, selected_date: date):
     items = list(manager.dialog_data.items())
     items.append(("birthday", selected_date))
-    
+
     for k, v in items:
         logger.debug(f"{k = } {v = }")
         query.update_user_info(
@@ -39,7 +38,7 @@ async def on_date_selected(callback: types.CallbackQuery, widget,
     await manager.done()
 
 dialog = Dialog(
-    
+
     Window(
         Const("Введите полное имя:"),
         TextInput(
@@ -49,7 +48,7 @@ dialog = Dialog(
         Cancel(Const("Отмена")),
         state=RegisterSG.full_name,
     ),
-    
+
     Window(
         Const("Введите номер телефона:"),
         TextInput(
@@ -59,7 +58,7 @@ dialog = Dialog(
         Cancel(Const("Отмена")),
         state=RegisterSG.phone,
     ),
-    
+
     Window(
         Const("Выберите дату рождения:"),
         Calendar(
