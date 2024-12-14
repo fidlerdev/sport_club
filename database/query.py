@@ -1,7 +1,7 @@
 from datetime import date, datetime, timedelta
 from typing import Any
 from loguru import logger
-from sqlalchemy import insert, select, delete, update
+from sqlalchemy import insert, select, delete, update, in
 
 from .database import engine, Base, session_factory
 from .schema import (
@@ -329,3 +329,15 @@ def get_training(tr_id: int) -> TrainingDB:
             select(TrainingDB)
             .where(TrainingDB.id == tr_id)
         ).scalar()
+
+def get_trainer_members(trainer_id: int) -> list[UserDB]:
+    with session_factory() as s:
+        member_ids = s.execute(
+            select(TrainerToMemberDB.member_id)
+            .where(TrainerToMemberDB.trainer_id == trainer_id)
+        ).scalars().all()
+        memebrs: list[UserDB] = s.execute(
+            select(UserDB)
+            .where(UserDB.id.in_(member_ids))
+        ).scalars().all()
+        return memebrs
