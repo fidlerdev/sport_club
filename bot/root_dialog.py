@@ -169,9 +169,11 @@ async def set_training(
     manager: DialogManager,
 ) -> None:
     _ = manager.dialog_data
+    member_id = _["member_id"],
+    trainer_id = callback.from_user.id,
+    tie_id = query.get_member_tie(member_id)
     query.add_training(
-        member_id=_["member_id"],
-        trainer_id=callback.from_user.id,
+        tie_id=tie_id,
         description=_.get("description", ""),
         date_time=datetime.strptime(_["date_time"], "%d.%m.%Y %H:%M"),
     )
@@ -365,11 +367,6 @@ root_dialog = Dialog(
         Format("<b>Тренер:</b> {trainer.full_name}", when=F["trainer"]),
         Format("<b>Дата рождения:</b> {member.birthday}"),
         SwitchTo(
-            Const("Назад"),
-            id="__ssst_memberlist",
-            state=BotSG.member_list,
-        ),
-        SwitchTo(
             Const("Назначить тренера"),
             state=BotSG.trainer_list,
             id="__st_trainer_list",
@@ -490,7 +487,7 @@ root_dialog = Dialog(
         ),
         SwitchTo(
             Const("Назад"),
-            state=BotSG.training_list,
+            state=BotSG.member_info,
             id="__st_training_list",
         ),
         state=BotSG.create_training,
