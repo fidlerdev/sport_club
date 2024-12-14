@@ -171,7 +171,7 @@ async def set_training(
     _ = manager.dialog_data
     member_id = _["member_id"],
     trainer_id = callback.from_user.id,
-    tie_id = query.get_member_tie(member_id)
+    tie_id = query.get_member_tie(member_id).id
     query.add_training(
         tie_id=tie_id,
         description=_.get("description", ""),
