@@ -381,6 +381,11 @@ root_dialog = Dialog(
             id="__s_create_training",
             when=F["role"] == Role.TRAINER,
         ),
+        SwitchTo(
+            Const("Назад"),
+            id="__st_member_list",
+            state=BotSG.member_list,
+        ),
         getter=member_info_getter,
         state=BotSG.member_info,
     ),
