@@ -196,9 +196,15 @@ async def members_list_getter(
     dialog_manager: DialogManager,
     **kwargs
 ) -> dict:
-    return {
-        "members": query.get_members()
-    }
+    if dialog_manager.start_data["role"] & Role.ADMIN:
+        return {
+            "members": query.get_members()
+        }
+    if dialog_manager.start_data["role"] & Role.TRAINER:
+        query.get_user_trainer
+        return {
+            "members": query.get_trainer_members(dialog_manager.start_data["user_id"])
+        }
 
 
 async def membership_list_getter(

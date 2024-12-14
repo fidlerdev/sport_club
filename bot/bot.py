@@ -1,5 +1,7 @@
 from aiogram import Dispatcher, Bot, types
-from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.fsm.storage.redis import RedisStorage
+from aiogram.fsm.storage.base import DefaultKeyBuilder
+from redis.asyncio import Redis
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from bot.input_data_dialog import input_data_dialog
@@ -20,7 +22,7 @@ bot = Bot(
     )
 )
 
-dp = Dispatcher(storage=MemoryStorage())
+dp = Dispatcher(storage=RedisStorage(Redis(), key_builder=DefaultKeyBuilder(with_destiny=True)))
 setup_dialogs(dp)
 
 
