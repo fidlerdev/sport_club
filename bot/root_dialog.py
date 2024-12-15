@@ -131,7 +131,9 @@ async def training_list_getter(
     if role == Role.TRAINER:
         trainings = query.get_trainer_trainings(user_id)
         logger.debug(f"{trainings = }")
-        return {"trainings": [(t.id, t.scheduled_datetime.strftime("%d.%m.%Y %H:%M")) for t in trainings]}
+        obj = {"trainings": [(t.id, t.scheduled_datetime.strftime("%d.%m.%Y %H:%M")) for t in trainings]}
+        logger.debug(f"TRAININGS: {obj}")
+        return obj
     if role == Role.MEMBER:
         trainings = query.get_user_trainings(user_id)
         logger.debug(f"{trainings = }")
