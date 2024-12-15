@@ -1,7 +1,7 @@
 from datetime import date, datetime, timedelta
 from typing import Any
 from loguru import logger
-from sqlalchemy import insert, select, delete, update, in
+from sqlalchemy import insert, select, delete, update
 
 from .database import engine, Base, session_factory
 from .schema import (
