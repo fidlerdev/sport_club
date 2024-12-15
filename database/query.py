@@ -285,16 +285,15 @@ def get_member_tie(user_id: int):
 
 def get_trainer_trainings(user_id: int) -> list[TrainingDB]:
     with session_factory() as s:
-        tie = s.execute(
-            select(TrainerToMemberDB)
+        tie_ids = s.execute(
+            select(TrainerToMemberDB.id)
             .where(TrainerToMemberDB.trainer_id == user_id)
-        ).scalar()
-        logger.debug(f"{tie =}")
-        if not tie:
+        ).scalars().all()
+        if not tie_ids:
             return []
         return s.execute(
             select(TrainingDB)
-            .where(TrainingDB.trainer_to_member_id == tie.id)
+            .where(TrainingDB.trainer_to_member_id.in_(tie_ids))
         ).scalars().all()
 
 
